@@ -217,6 +217,17 @@ const CHAIN_INFO: ChainInfoMap = {
     nativeCurrency: { name: 'Celo', symbol: 'CELO', decimals: 18 },
     defaultListUrl: CELO_LIST,
   },
+  [SupportedChainId.OBSCURO_NETWORK]: {
+    networkType: NetworkType.L1,
+    docs: 'https://docs.uniswap.org/',
+    explorer: '',
+    infoLink: '',
+    // explorer: 'https://goerli.etherscan.io/',
+    // infoLink: 'https://info.uniswap.org/#/',
+    label: 'Obscuro',
+    logoUrl: ethereumLogoUrl,
+    nativeCurrency: { name: 'Eth', symbol: 'ETH', decimals: 18 },
+  },
 }
 
 export function getChainInfo(chainId: SupportedL1ChainId): L1ChainInfo

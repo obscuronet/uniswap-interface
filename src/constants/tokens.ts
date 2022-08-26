@@ -1,6 +1,7 @@
 import { Currency, Ether, NativeCurrency, Token, WETH9 } from '@uniswap/sdk-core'
 import invariant from 'tiny-invariant'
 
+import { OBSCURO_NETWORK_USDC_ADDRESS, OBSCURO_NETWORK_WETH_ADDRESS } from '../obscuro_constants'
 import { UNI_ADDRESS } from './addresses'
 import { SupportedChainId } from './chains'
 
@@ -123,6 +124,13 @@ export const DAI_OPTIMISM = new Token(
   'DAI',
   'Dai stable coin'
 )
+export const USDC_OBSCURO_NETWORK = new Token(
+  SupportedChainId.OBSCURO_NETWORK,
+  OBSCURO_NETWORK_USDC_ADDRESS,
+  6,
+  'USDC',
+  'USD//C'
+)
 export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.MAINNET]: USDC_MAINNET,
   [SupportedChainId.ARBITRUM_ONE]: USDC_ARBITRUM,
@@ -137,6 +145,7 @@ export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.RINKEBY]: USDC_RINKEBY,
   [SupportedChainId.KOVAN]: USDC_KOVAN,
   [SupportedChainId.ROPSTEN]: USDC_ROPSTEN,
+  [SupportedChainId.OBSCURO_NETWORK]: USDC_OBSCURO_NETWORK,
 }
 export const DAI_POLYGON = new Token(
   SupportedChainId.POLYGON,
@@ -387,6 +396,13 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     18,
     'WMATIC',
     'Wrapped MATIC'
+  ),
+  [SupportedChainId.OBSCURO_NETWORK]: new Token(
+    SupportedChainId.OBSCURO_NETWORK,
+    OBSCURO_NETWORK_WETH_ADDRESS,
+    18,
+    'WETH',
+    'Wrapped Eth'
   ),
 }
 

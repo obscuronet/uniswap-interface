@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */ // TODO: upgrade to latest eslint tooling
 import clsx from 'clsx'
 import React from 'react'
 

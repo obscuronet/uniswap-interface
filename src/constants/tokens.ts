@@ -127,7 +127,7 @@ export const DAI_OPTIMISM = new Token(
 export const USDC_OBSCURO_NETWORK = new Token(
   SupportedChainId.OBSCURO_NETWORK,
   OBSCURO_NETWORK_USDC_ADDRESS,
-  6,
+  18,
   'USDC',
   'USD//C'
 )

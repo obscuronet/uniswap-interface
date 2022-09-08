@@ -344,6 +344,13 @@ export const CEUR_CELO_ALFAJORES = new Token(
   'CEUR',
   'Celo Euro Stablecoin'
 )
+export const OBSCURO_NATIVE_TOKEN = new Token(
+  SupportedChainId.OBSCURO_NETWORK,
+  OBSCURO_NETWORK_WETH_ADDRESS,
+  18,
+  'OBX',
+  'Obscuro Token'
+)
 
 export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.MAINNET]: new Token(SupportedChainId.MAINNET, UNI_ADDRESS[1], 18, 'UNI', 'Uniswap'),
@@ -401,8 +408,8 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     SupportedChainId.OBSCURO_NETWORK,
     OBSCURO_NETWORK_WETH_ADDRESS,
     18,
-    'WETH',
-    'Wrapped Eth'
+    'WOBX',
+    'Wrapped Obx'
   ),
 }
 
@@ -443,6 +450,14 @@ class MaticNativeCurrency extends NativeCurrency {
   }
 }
 
+export function isObscuro(chainId: number): chainId is SupportedChainId.OBSCURO_NETWORK {
+  return chainId === SupportedChainId.OBSCURO_NETWORK
+}
+
+function getObscuroNativeCurrency(chainId: number) {
+  return OBSCURO_NATIVE_TOKEN
+}
+
 export class ExtendedEther extends Ether {
   public get wrapped(): Token {
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
@@ -465,6 +480,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = new MaticNativeCurrency(chainId)
   } else if (isCelo(chainId)) {
     nativeCurrency = getCeloNativeCurrency(chainId)
+  } else if (isObscuro(chainId)) {
+    nativeCurrency = getObscuroNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

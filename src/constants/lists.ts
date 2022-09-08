@@ -1,4 +1,4 @@
-export const UNI_LIST = 'https://tokens.uniswap.org'
+export const UNI_LIST = 'https://kvdb.io/WVNLPGWE94wkw7TRv3vAFc/token_testnet_001?format=json'
 //export const UNI_EXTENDED_LIST = 'https://gateway.pinata.cloud/ipfs/QmaQvV3pWKKaWJcHvSBuvQMrpckV3KKtGJ6p3HZjakwFtX'
 // const AAVE_LIST = 'tokenlist.aave.eth'
 const BA_LIST = 'https://raw.githubusercontent.com/The-Blockchain-Association/sec-notice-list/master/ba-sec-list.json'

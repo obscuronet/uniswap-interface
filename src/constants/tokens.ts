@@ -454,8 +454,22 @@ export function isObscuro(chainId: number): chainId is SupportedChainId.OBSCURO_
   return chainId === SupportedChainId.OBSCURO_NETWORK
 }
 
-function getObscuroNativeCurrency(chainId: number) {
-  return OBSCURO_NATIVE_TOKEN
+class ObscuroNativeCurrency extends NativeCurrency {
+  equals(other: Currency): boolean {
+    return other.isNative && other.chainId === this.chainId
+  }
+
+  get wrapped(): Token {
+    if (!isObscuro(this.chainId)) throw new Error('Not obscuro')
+    const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
+    invariant(wrapped instanceof Token)
+    return wrapped
+  }
+
+  public constructor(chainId: number) {
+    if (!isObscuro(chainId)) throw new Error('Not obscuro')
+    super(chainId, 18, 'OBX', 'Obscuro Token')
+  }
 }
 
 export class ExtendedEther extends Ether {
@@ -481,7 +495,7 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
   } else if (isCelo(chainId)) {
     nativeCurrency = getCeloNativeCurrency(chainId)
   } else if (isObscuro(chainId)) {
-    nativeCurrency = getObscuroNativeCurrency(chainId)
+    nativeCurrency = new ObscuroNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

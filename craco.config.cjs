@@ -15,5 +15,8 @@ module.exports = {
       if (instanceOfMiniCssExtractPlugin !== undefined) instanceOfMiniCssExtractPlugin.options.ignoreOrder = true
       return webpackConfig
     },
+    alias: {
+      '@uniswap/conedison': '@uniswap/conedison/dist',
+    },
   },
 }

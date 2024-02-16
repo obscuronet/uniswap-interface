@@ -278,7 +278,7 @@ const NETWORK_SELECTOR_CHAINS = [
   SupportedChainId.OPTIMISM,
   SupportedChainId.ARBITRUM_ONE,
   SupportedChainId.CELO,
-  SupportedChainId.OBSCURO_NETWORK,
+  SupportedChainId.TEN_NETWORK,
 ]
 
 export default function NetworkSelector() {

@@ -1,6 +1,6 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
 
-import { OBSCURO_NETWORK_URL } from '../obscuro_constants'
+import { TEN_NETWORK_URL } from '../ten_constants'
 import { SupportedChainId } from './chains'
 
 const INFURA_KEY = process.env.REACT_APP_INFURA_KEY
@@ -27,5 +27,5 @@ export const RPC_URLS: { [key in SupportedChainId]: string } = {
   [SupportedChainId.POLYGON_MUMBAI]: `https://polygon-mumbai.infura.io/v3/${INFURA_KEY}`,
   [SupportedChainId.CELO]: `https://forno.celo.org`,
   [SupportedChainId.CELO_ALFAJORES]: `https://alfajores-forno.celo-testnet.org`,
-  [SupportedChainId.OBSCURO_NETWORK]: OBSCURO_NETWORK_URL,
+  [SupportedChainId.TEN_NETWORK]: TEN_NETWORK_URL,
 }

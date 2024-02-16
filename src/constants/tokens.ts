@@ -1,7 +1,7 @@
 import { Currency, Ether, NativeCurrency, Token, WETH9 } from '@uniswap/sdk-core'
 import invariant from 'tiny-invariant'
 
-import { OBSCURO_NETWORK_USDC_ADDRESS, OBSCURO_NETWORK_WETH_ADDRESS } from '../obscuro_constants'
+import { TEN_NETWORK_USDC_ADDRESS, TEN_NETWORK_WETH_ADDRESS } from '../ten_constants'
 import { UNI_ADDRESS } from './addresses'
 import { SupportedChainId } from './chains'
 
@@ -124,13 +124,7 @@ export const DAI_OPTIMISM = new Token(
   'DAI',
   'Dai stable coin'
 )
-export const USDC_OBSCURO_NETWORK = new Token(
-  SupportedChainId.OBSCURO_NETWORK,
-  OBSCURO_NETWORK_USDC_ADDRESS,
-  18,
-  'USDC',
-  'USD//C'
-)
+export const USDC_TEN_NETWORK = new Token(SupportedChainId.TEN_NETWORK, TEN_NETWORK_USDC_ADDRESS, 18, 'USDC', 'USD//C')
 export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.MAINNET]: USDC_MAINNET,
   [SupportedChainId.ARBITRUM_ONE]: USDC_ARBITRUM,
@@ -145,7 +139,7 @@ export const USDC: { [chainId in SupportedChainId]: Token } = {
   [SupportedChainId.RINKEBY]: USDC_RINKEBY,
   [SupportedChainId.KOVAN]: USDC_KOVAN,
   [SupportedChainId.ROPSTEN]: USDC_ROPSTEN,
-  [SupportedChainId.OBSCURO_NETWORK]: USDC_OBSCURO_NETWORK,
+  [SupportedChainId.TEN_NETWORK]: USDC_TEN_NETWORK,
 }
 export const DAI_POLYGON = new Token(
   SupportedChainId.POLYGON,
@@ -344,13 +338,7 @@ export const CEUR_CELO_ALFAJORES = new Token(
   'CEUR',
   'Celo Euro Stablecoin'
 )
-export const OBSCURO_NATIVE_TOKEN = new Token(
-  SupportedChainId.OBSCURO_NETWORK,
-  OBSCURO_NETWORK_WETH_ADDRESS,
-  18,
-  'OBX',
-  'Obscuro Token'
-)
+export const TEN_NATIVE_TOKEN = new Token(SupportedChainId.TEN_NETWORK, TEN_NETWORK_WETH_ADDRESS, 18, 'ETH', 'Ether')
 
 export const UNI: { [chainId: number]: Token } = {
   [SupportedChainId.MAINNET]: new Token(SupportedChainId.MAINNET, UNI_ADDRESS[1], 18, 'UNI', 'Uniswap'),
@@ -404,13 +392,7 @@ export const WRAPPED_NATIVE_CURRENCY: { [chainId: number]: Token | undefined } =
     'WMATIC',
     'Wrapped MATIC'
   ),
-  [SupportedChainId.OBSCURO_NETWORK]: new Token(
-    SupportedChainId.OBSCURO_NETWORK,
-    OBSCURO_NETWORK_WETH_ADDRESS,
-    18,
-    'WOBX',
-    'Wrapped Obx'
-  ),
+  [SupportedChainId.TEN_NETWORK]: new Token(SupportedChainId.TEN_NETWORK, TEN_NETWORK_WETH_ADDRESS, 18, 'ETH', 'Ether'),
 }
 
 export function isCelo(chainId: number): chainId is SupportedChainId.CELO | SupportedChainId.CELO_ALFAJORES {
@@ -450,25 +432,25 @@ class MaticNativeCurrency extends NativeCurrency {
   }
 }
 
-export function isObscuro(chainId: number): chainId is SupportedChainId.OBSCURO_NETWORK {
-  return chainId === SupportedChainId.OBSCURO_NETWORK
+export function isTen(chainId: number): chainId is SupportedChainId.TEN_NETWORK {
+  return chainId === SupportedChainId.TEN_NETWORK
 }
 
-class ObscuroNativeCurrency extends NativeCurrency {
+class TenNativeCurrency extends NativeCurrency {
   equals(other: Currency): boolean {
     return other.isNative && other.chainId === this.chainId
   }
 
   get wrapped(): Token {
-    if (!isObscuro(this.chainId)) throw new Error('Not obscuro')
+    if (!isTen(this.chainId)) throw new Error('Not Ten Network')
     const wrapped = WRAPPED_NATIVE_CURRENCY[this.chainId]
     invariant(wrapped instanceof Token)
     return wrapped
   }
 
   public constructor(chainId: number) {
-    if (!isObscuro(chainId)) throw new Error('Not obscuro')
-    super(chainId, 18, 'OBX', 'Obscuro Token')
+    if (!isTen(chainId)) throw new Error('Not Ten Network')
+    super(chainId, 18, 'OBX', 'Ten Token')
   }
 }
 
@@ -494,8 +476,8 @@ export function nativeOnChain(chainId: number): NativeCurrency | Token {
     nativeCurrency = new MaticNativeCurrency(chainId)
   } else if (isCelo(chainId)) {
     nativeCurrency = getCeloNativeCurrency(chainId)
-  } else if (isObscuro(chainId)) {
-    nativeCurrency = new ObscuroNativeCurrency(chainId)
+  } else if (isTen(chainId)) {
+    nativeCurrency = new TenNativeCurrency(chainId)
   } else {
     nativeCurrency = ExtendedEther.onChain(chainId)
   }

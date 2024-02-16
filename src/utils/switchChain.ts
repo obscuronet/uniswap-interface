@@ -4,7 +4,7 @@ import { getChainInfo } from 'constants/chainInfo'
 import { ALL_SUPPORTED_CHAIN_IDS, SupportedChainId } from 'constants/chains'
 import { RPC_URLS } from 'constants/networks'
 
-import { OBSCURO_NETWORK_URL } from '../obscuro_constants'
+import { TEN_NETWORK_URL } from '../ten_constants'
 
 function getRpcUrls(chainId: SupportedChainId): [string] {
   switch (chainId) {
@@ -30,8 +30,8 @@ function getRpcUrls(chainId: SupportedChainId): [string] {
       return ['https://forno.celo.org']
     case SupportedChainId.CELO_ALFAJORES:
       return ['https://alfajores-forno.celo-testnet.org']
-    case SupportedChainId.OBSCURO_NETWORK:
-      return [OBSCURO_NETWORK_URL]
+    case SupportedChainId.TEN_NETWORK:
+      return [TEN_NETWORK_URL]
 
     default:
   }

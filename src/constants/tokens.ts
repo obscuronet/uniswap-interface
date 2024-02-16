@@ -450,7 +450,7 @@ class TenNativeCurrency extends NativeCurrency {
 
   public constructor(chainId: number) {
     if (!isTen(chainId)) throw new Error('Not Ten Network')
-    super(chainId, 18, 'OBX', 'Ten Token')
+    super(chainId, 18, 'ETH', 'Ether (TEN)')
   }
 }
 
